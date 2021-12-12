@@ -1,0 +1,149 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+header {
+    width: 100%;
+    height: 10vh;
+    padding: 0.5% 0%;
+    background-image: linear-gradient(
+        to right,
+        rgb(46, 95, 199) 0%,
+        rgb(43, 22, 133)
+    );    
+}
+
+header h1 {
+    text-align: center;
+    font-weight: bold;
+    color: white;  
+}
+
+main {
+    width: 100%;
+    height: 85vh;
+    padding: 0% 1%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    /*border: solid 1px black;*/
+}
+
+aside {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 95%;
+    width: 22%;
+    /*border: solid 1px black;*/
+}
+
+#search-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex: 0 0 100%;
+    height: 25%;
+    /*border: solid 1px black;*/
+}
+
+#search-form h2 {
+    flex: 0 0 100%;
+    font-weight: bold;
+}
+
+#search {
+    flex: 0 0 100%;
+    height: 25%;
+    border-radius: 5px;
+}
+
+#search-btn {
+    flex: 0 0 100%;
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#history-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-self: flex-end;
+    flex: 0 0 100%;
+    height: 70%;
+    /*border: solid 1px black;*/
+}
+
+.history-btns {
+    flex: 0 0 100%;
+    height: 9%;
+    background-color: silver;
+    border: none;
+    border-radius: 5px;
+}
+
+#today-section {
+    display: flex;
+    flex-direction: column;
+    line-height: 2;
+    flex: 0 0 30%;
+    width: 73%;
+    border: solid 1px black;
+}
+
+#today-section h2 {
+    font-weight: bold;
+    padding: 0% 1%;
+}
+
+#today-section ul {
+    padding: 0% 1%;
+}
+
+#today-section ul li {
+    font-size: 20px;
+    list-style: none;
+}
+
+#frcst-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    flex: 0 0 56%;
+    width: 73%;
+    line-height: 2;
+    /*border: solid 1px black;*/
+}
+
+#frcst-section h3 {
+    flex: 0 0 100%;
+    height: 10%;
+    font-weight: bold;
+}
+
+#frcst-section div {
+    flex: 0 0 18%;
+    height: 50%;
+    background-color: rgb(48, 71, 122);
+    color: white;
+    align-self: flex-start;
+}
+
+#frcst-section div h4 {
+    padding: 0 5%;
+    font-weight: bold;
+}
+
+#frcst-section div ul {
+    padding: 0% 5%;
+}
+
+#frcst-section div ul li {
+    list-style: none;
+}
