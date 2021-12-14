@@ -106,6 +106,7 @@ aside {
     flex: 0 0 30%;
     width: 73%;
     border: solid 1px black;
+    visibility: hidden;
 }
 
 #today-section h2 {
@@ -120,6 +121,11 @@ aside {
 #today-section ul li {
     font-size: 20px;
     list-style: none;
+}
+
+#uvi {
+    padding: 0.5%;
+    border-radius: 5px;
 }
 
 #frcst-section {
