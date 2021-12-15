@@ -68,8 +68,54 @@ searchBtn.addEventListener("click", function(event) {
 
                 todayEl.setAttribute("style", "visibility: visible");
 
+                for (var i = 0; i < 5; i++) {
+                    var frcstCardEl = document.createElement("div");
+                    frcstCardEl.setAttribute("class", "frcst-cards");
+                    frcstEl.appendChild(frcstCardEl);
 
+                    var frcstDateEl = document.createElement("h4");
+                    frcstDateEl.setAttribute("class", "frcst-dates");
+                    frcstDateEl.textContent = moment().add(i + 1, "days").format("L");
+                    frcstCardEl.appendChild(frcstDateEl);
 
+                    var frcstWeatherEl = document.createElement("ul");
+                    frcstWeatherEl.setAttribute("class", "frcst-weather");
+                    frcstCardEl.appendChild(frcstWeatherEl);
+
+                    var frcstIconEl = document.createElement("li");
+                    frcstIconEl.setAttribute("class", "frcst-icons");
+                    frcstWeatherEl.appendChild(frcstIconEl);
+
+                    var frcstIconCode = data2.daily[i].weather[0].icon;
+                    var frcstIcon = "http://openweathermap.org/img/wn/" + frcstIconCode + ".png"
+                    var frcstImage = document.createElement("img");
+                    frcstImage.setAttribute("src", frcstIcon);
+                    frcstIconEl.appendChild(frcstImage);
+
+                    var frcstTempEl = document.createElement("li");
+                    frcstTempEl.setAttribute("class", "frcst-temps");
+                    var frcstTemp = data2.daily[i].temp.day;
+                    frcstTempEl.textContent = "Temp: " + frcstTemp + "\u00B0" + "F";
+                    frcstWeatherEl.appendChild(frcstTempEl);
+
+                    var frcstWindEl = document.createElement("li");
+                    frcstWindEl.setAttribute("class", "frcst-winds");
+                    var frcstWind = data2.daily[i].wind_speed;
+                    frcstWindEl.textContent = "Wind: " + frcstWind + " MPH";
+                    frcstWeatherEl.appendChild(frcstWindEl);
+
+                    var frcstHumidityEl = document.createElement("li");
+                    frcstHumidityEl.setAttribute("class", "frcst-humidities");
+                    var frcstHumidity = data2.daily[i].humidity;
+                    frcstHumidityEl.textContent = "Humidity: " + frcstHumidity + " \u0025";
+                    frcstWeatherEl.appendChild(frcstHumidityEl);
+
+                    if (frcstEl.hasChildNodes()) {
+                        frcstEl.replaceChild(frcstCardEl, frcstEl.children[i + 1]);
+                    }
+                }
+
+                frcstEl.setAttribute("style", "visibility: visible");
             })
         })
     

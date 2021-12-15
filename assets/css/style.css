@@ -136,6 +136,7 @@ aside {
     flex: 0 0 56%;
     width: 73%;
     line-height: 2;
+    visibility: hidden;
     /*border: solid 1px black;*/
 }
 
@@ -145,7 +146,7 @@ aside {
     font-weight: bold;
 }
 
-#frcst-section div {
+.frcst-cards {
     flex: 0 0 18%;
     height: 50%;
     background-color: rgb(48, 71, 122);
@@ -153,15 +154,15 @@ aside {
     align-self: flex-start;
 }
 
-#frcst-section div h4 {
+.frcst-dates {
     padding: 0 5%;
     font-weight: bold;
 }
 
-#frcst-section div ul {
+.frcst-weather {
     padding: 0% 5%;
 }
 
-#frcst-section div ul li {
+.frcst-weather li {
     list-style: none;
 }
