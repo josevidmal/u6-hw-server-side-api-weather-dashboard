@@ -116,7 +116,149 @@ searchBtn.addEventListener("click", function(event) {
                 }
 
                 frcstEl.setAttribute("style", "visibility: visible");
+
+                var localStorageContent = localStorage.getItem("cities");
+
+                var cities;
+                if (localStorageContent === null) {
+                    cities = [];
+                } else {
+                    cities = JSON.parse(localStorageContent);
+                }
+
+                cities.unshift(city);
+                var citiesSliced = cities.slice(0,7);
+                //var citiesReversed = citiesSliced.reverse();
+
+                localStorage.setItem("cities", JSON.stringify(citiesSliced));
+
+                var lastSearch = JSON.parse(localStorage.getItem("cities"));
+
+                if (lastSearch !== null) {
+                    var newBtn = document.createElement("button");
+                    newBtn.setAttribute("class", "history-btns");
+                    newBtn.setAttribute("value", lastSearch[0]);
+                    newBtn.textContent = lastSearch[0];
+                    historyEl.appendChild(newBtn);
+                } else {
+                    return;
+                }
+
+                /*for (var i = 0; i < lastSearch.length; i++) {
+                    if (lastSearch !== null) {
+                        var newBtn = document.createElement("button");
+                        newBtn.setAttribute("class", "history-btns");
+                        newBtn.textContent = lastSearch[i];
+                        historyEl.appendChild(newBtn);
+                    } else {
+                        return;
+                    }
+                }*/
             })
         })
-    
 });
+
+historyEl.addEventListener("click", function(event) {
+
+    var historyCity = event.target.value;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + historyCity + "&appid=" + APIKey;
+
+    fetch(queryURL)
+        .then(function(response1) {
+            return response1.json();
+        })
+        .then(function(data1) {
+            console.log(data1);
+            var lat = data1.coord.lat;
+            var lon = data1.coord.lon;
+            console.log(lat, lon);
+            var oneAPICall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + APIKey;
+
+            fetch(oneAPICall)
+            .then(function(response2) {
+                return response2.json();
+            })
+            .then(function(data2) {
+                console.log(data2);
+                
+                var currCity = data1.name;
+                var currDate = moment().format("L");
+                var currIconCode = data1.weather[0].icon;
+                var currIcon = "http://openweathermap.org/img/wn/" + currIconCode + ".png"
+                var currTemp = data2.current.temp;
+                var currWind = data2.current.wind_speed;
+                var currHumidity = data2.current.humidity;
+                var currUVI = data2.current.uvi;
+                console.log(currTemp, currWind, currHumidity, currUVI);
+
+                currCityDateEl.textContent = currCity + " " + currDate;
+                currIconEl.setAttribute("src", currIcon);
+                currCityDateEl.appendChild(currIconEl);
+                currTempEl.textContent = "Temp: " + currTemp + "\u00B0" + "F";
+                currWindEl.textContent = "Wind: " + currWind + " MPH";
+                currHumidityEl.textContent = "Humidity: " + currHumidity + " \u0025";
+                currUviEl.textContent = "UV Index: ";
+                currUviSpan.textContent = currUVI;
+                currUviEl.appendChild(currUviSpan);
+
+                if (currUVI <= 2.99) {
+                    currUviSpan.setAttribute("style", "background-color: green");
+                } if (currUVI >= 3 && currUVI <= 5.99) {
+                    currUviSpan.setAttribute("style", "background-color: yellow");
+                } if (currUVI >= 6) {
+                    currUviSpan.setAttribute("style", "background-color: red");
+                }
+
+                todayEl.setAttribute("style", "visibility: visible");
+
+                for (var i = 0; i < 5; i++) {
+                    var frcstCardEl = document.createElement("div");
+                    frcstCardEl.setAttribute("class", "frcst-cards");
+                    frcstEl.appendChild(frcstCardEl);
+
+                    var frcstDateEl = document.createElement("h4");
+                    frcstDateEl.setAttribute("class", "frcst-dates");
+                    frcstDateEl.textContent = moment().add(i + 1, "days").format("L");
+                    frcstCardEl.appendChild(frcstDateEl);
+
+                    var frcstWeatherEl = document.createElement("ul");
+                    frcstWeatherEl.setAttribute("class", "frcst-weather");
+                    frcstCardEl.appendChild(frcstWeatherEl);
+
+                    var frcstIconEl = document.createElement("li");
+                    frcstIconEl.setAttribute("class", "frcst-icons");
+                    frcstWeatherEl.appendChild(frcstIconEl);
+
+                    var frcstIconCode = data2.daily[i].weather[0].icon;
+                    var frcstIcon = "http://openweathermap.org/img/wn/" + frcstIconCode + ".png"
+                    var frcstImage = document.createElement("img");
+                    frcstImage.setAttribute("src", frcstIcon);
+                    frcstIconEl.appendChild(frcstImage);
+
+                    var frcstTempEl = document.createElement("li");
+                    frcstTempEl.setAttribute("class", "frcst-temps");
+                    var frcstTemp = data2.daily[i].temp.day;
+                    frcstTempEl.textContent = "Temp: " + frcstTemp + "\u00B0" + "F";
+                    frcstWeatherEl.appendChild(frcstTempEl);
+
+                    var frcstWindEl = document.createElement("li");
+                    frcstWindEl.setAttribute("class", "frcst-winds");
+                    var frcstWind = data2.daily[i].wind_speed;
+                    frcstWindEl.textContent = "Wind: " + frcstWind + " MPH";
+                    frcstWeatherEl.appendChild(frcstWindEl);
+
+                    var frcstHumidityEl = document.createElement("li");
+                    frcstHumidityEl.setAttribute("class", "frcst-humidities");
+                    var frcstHumidity = data2.daily[i].humidity;
+                    frcstHumidityEl.textContent = "Humidity: " + frcstHumidity + " \u0025";
+                    frcstWeatherEl.appendChild(frcstHumidityEl);
+
+                    if (frcstEl.hasChildNodes()) {
+                        frcstEl.replaceChild(frcstCardEl, frcstEl.children[i + 1]);
+                    }
+                }
+
+                frcstEl.setAttribute("style", "visibility: visible");
+            })
+        })
+})
