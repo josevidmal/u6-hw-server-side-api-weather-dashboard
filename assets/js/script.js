@@ -189,10 +189,8 @@ historyEl.addEventListener("click", function(event) {
             return response1.json();
         })
         .then(function(data1) {
-            console.log(data1);
             var lat = data1.coord.lat;
             var lon = data1.coord.lon;
-            console.log(lat, lon);
             var oneAPICall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + APIKey;
 
             fetch(oneAPICall)
@@ -200,7 +198,6 @@ historyEl.addEventListener("click", function(event) {
                 return response2.json();
             })
             .then(function(data2) {
-                console.log(data2);
                 
                 var currCity = data1.name;
                 var currDate = moment().format("L");
@@ -210,7 +207,6 @@ historyEl.addEventListener("click", function(event) {
                 var currWind = data2.current.wind_speed;
                 var currHumidity = data2.current.humidity;
                 var currUVI = data2.current.uvi;
-                console.log(currTemp, currWind, currHumidity, currUVI);
 
                 currCityDateEl.textContent = currCity + " " + currDate;
                 currIconEl.setAttribute("src", currIcon);
