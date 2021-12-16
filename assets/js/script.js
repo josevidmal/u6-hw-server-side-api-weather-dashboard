@@ -19,7 +19,7 @@ searchBtn.addEventListener("click", function(event) {
     event.preventDefault();
 
     var city = inputEl.value;
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function(response1) {
@@ -44,7 +44,7 @@ searchBtn.addEventListener("click", function(event) {
                 var currCity = data1.name;
                 var currDate = moment().format("L");
                 var currIconCode = data1.weather[0].icon;
-                var currIcon = "http://openweathermap.org/img/wn/" + currIconCode + ".png"
+                var currIcon = "https://openweathermap.org/img/wn/" + currIconCode + ".png"
                 var currTemp = data2.current.temp;
                 var currWind = data2.current.wind_speed;
                 var currHumidity = data2.current.humidity;
@@ -89,7 +89,7 @@ searchBtn.addEventListener("click", function(event) {
                     frcstWeatherEl.appendChild(frcstIconEl);
 
                     var frcstIconCode = data2.daily[i].weather[0].icon;
-                    var frcstIcon = "http://openweathermap.org/img/wn/" + frcstIconCode + ".png"
+                    var frcstIcon = "https://openweathermap.org/img/wn/" + frcstIconCode + ".png"
                     var frcstImage = document.createElement("img");
                     frcstImage.setAttribute("src", frcstIcon);
                     frcstIconEl.appendChild(frcstImage);
@@ -182,7 +182,7 @@ function renderHistoryBtns() {
 historyEl.addEventListener("click", function(event) {
 
     var historyCity = event.target.value;
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + historyCity + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + historyCity + "&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function(response1) {
@@ -205,7 +205,7 @@ historyEl.addEventListener("click", function(event) {
                 var currCity = data1.name;
                 var currDate = moment().format("L");
                 var currIconCode = data1.weather[0].icon;
-                var currIcon = "http://openweathermap.org/img/wn/" + currIconCode + ".png"
+                var currIcon = "https://openweathermap.org/img/wn/" + currIconCode + ".png"
                 var currTemp = data2.current.temp;
                 var currWind = data2.current.wind_speed;
                 var currHumidity = data2.current.humidity;
@@ -251,7 +251,7 @@ historyEl.addEventListener("click", function(event) {
                     frcstWeatherEl.appendChild(frcstIconEl);
 
                     var frcstIconCode = data2.daily[i].weather[0].icon;
-                    var frcstIcon = "http://openweathermap.org/img/wn/" + frcstIconCode + ".png"
+                    var frcstIcon = "https://openweathermap.org/img/wn/" + frcstIconCode + ".png"
                     var frcstImage = document.createElement("img");
                     frcstImage.setAttribute("src", frcstIcon);
                     frcstIconEl.appendChild(frcstImage);
