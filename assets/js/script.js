@@ -11,6 +11,7 @@ var currUviEl = document.getElementById("curr-uvi");
 var currUviSpan = document.getElementById("uvi");
 var frcstEl = document.getElementById("frcst-section");
 
+init();
 
 var APIKey = "0e46e20b49b1fd7b6821209d1fb54328";
 
@@ -22,13 +23,17 @@ searchBtn.addEventListener("click", function(event) {
 
     fetch(queryURL)
         .then(function(response1) {
+            if (response1.ok) {
             return response1.json();
+            } else {
+            alert("Please choose a valid city");
+            return;
+            }
         })
+
         .then(function(data1) {
-            console.log(data1);
             var lat = data1.coord.lat;
             var lon = data1.coord.lon;
-            console.log(lat, lon);
             var oneAPICall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=" + APIKey;
 
             fetch(oneAPICall)
@@ -36,8 +41,6 @@ searchBtn.addEventListener("click", function(event) {
                 return response2.json();
             })
             .then(function(data2) {
-                console.log(data2);
-                
                 var currCity = data1.name;
                 var currDate = moment().format("L");
                 var currIconCode = data1.weather[0].icon;
@@ -46,7 +49,6 @@ searchBtn.addEventListener("click", function(event) {
                 var currWind = data2.current.wind_speed;
                 var currHumidity = data2.current.humidity;
                 var currUVI = data2.current.uvi;
-                console.log(currTemp, currWind, currHumidity, currUVI);
 
                 currCityDateEl.textContent = currCity + " " + currDate;
                 currIconEl.setAttribute("src", currIcon);
@@ -127,36 +129,55 @@ searchBtn.addEventListener("click", function(event) {
                 }
 
                 cities.unshift(city);
-                var citiesSliced = cities.slice(0,7);
-                //var citiesReversed = citiesSliced.reverse();
+                var citiesSliced = cities.slice(0,9);
 
                 localStorage.setItem("cities", JSON.stringify(citiesSliced));
 
                 var lastSearch = JSON.parse(localStorage.getItem("cities"));
-
+                
                 if (lastSearch !== null) {
                     var newBtn = document.createElement("button");
                     newBtn.setAttribute("class", "history-btns");
                     newBtn.setAttribute("value", lastSearch[0]);
                     newBtn.textContent = lastSearch[0];
-                    historyEl.appendChild(newBtn);
                 } else {
                     return;
                 }
 
-                /*for (var i = 0; i < lastSearch.length; i++) {
-                    if (lastSearch !== null) {
-                        var newBtn = document.createElement("button");
-                        newBtn.setAttribute("class", "history-btns");
-                        newBtn.textContent = lastSearch[i];
-                        historyEl.appendChild(newBtn);
-                    } else {
-                        return;
-                    }
-                }*/
+                if (historyEl.hasChildNodes()) {
+                    historyEl.insertBefore(newBtn, historyEl.children[0]);
+                } else {
+                    historyEl.appendChild(newBtn);
+                }
+
+                if (lastSearch.length > 8) {
+                    historyEl.removeChild(historyEl.children[8]);
+                }
+
             })
         })
 });
+
+function init() {
+    renderHistoryBtns();
+}
+
+function renderHistoryBtns() {
+
+    var lastSearch = JSON.parse(localStorage.getItem("cities"));
+
+    for (var i = 0; i < 8; i++) {
+        if (lastSearch !== null) {
+            var newBtn = document.createElement("button");
+            newBtn.setAttribute("class", "history-btns");
+            newBtn.setAttribute("value", lastSearch[i]);
+            newBtn.textContent = lastSearch[i];
+            historyEl.appendChild(newBtn);
+        } else {
+            return;
+        }
+    }
+}
 
 historyEl.addEventListener("click", function(event) {
 

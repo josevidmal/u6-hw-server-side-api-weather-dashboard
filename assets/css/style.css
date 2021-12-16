@@ -30,7 +30,6 @@ main {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    /*border: solid 1px black;*/
 }
 
 aside {
@@ -38,7 +37,6 @@ aside {
     flex-wrap: wrap;
     flex: 0 0 95%;
     width: 22%;
-    /*border: solid 1px black;*/
 }
 
 #search-form {
@@ -47,7 +45,6 @@ aside {
     justify-content: flex-start;
     flex: 0 0 100%;
     height: 25%;
-    /*border: solid 1px black;*/
 }
 
 #search-form h2 {
@@ -82,7 +79,6 @@ aside {
     gap: 2%;
     flex: 0 0 100%;
     height: 70%;
-    /*border: solid 1px black;*/
 }
 
 .history-btns {
@@ -108,6 +104,7 @@ aside {
     flex: 0 0 30%;
     width: 73%;
     border: solid 1px black;
+    background-color: lightskyblue;
     visibility: hidden;
 }
 
@@ -139,7 +136,6 @@ aside {
     width: 73%;
     line-height: 2;
     visibility: hidden;
-    /*border: solid 1px black;*/
 }
 
 #frcst-section h3 {
@@ -151,9 +147,8 @@ aside {
 .frcst-cards {
     flex: 0 0 18%;
     height: 50%;
-    /*background-color: lightskyblue;*/
-    background-color: rgb(48, 71, 122);
-    color: white;
+    background-color: lightskyblue;
+    color: Black;
     align-self: flex-start;
 }
 
