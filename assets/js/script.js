@@ -166,16 +166,20 @@ function renderHistoryBtns() {
 
     var lastSearch = JSON.parse(localStorage.getItem("cities"));
 
-    for (var i = 0; i < 8; i++) {
-        if (lastSearch !== null) {
+    if (lastSearch !== null) {
+        for (var i = 0; i < 8; i++) {
             var newBtn = document.createElement("button");
             newBtn.setAttribute("class", "history-btns");
             newBtn.setAttribute("value", lastSearch[i]);
             newBtn.textContent = lastSearch[i];
             historyEl.appendChild(newBtn);
-        } else {
+            var btnValue = newBtn.getAttribute("value");
+            if (btnValue === "undefined") {
+                newBtn.setAttribute("style", "display: none");
+            }
+        } 
+    } else {
             return;
-        }
     }
 }
 
