@@ -32,3 +32,22 @@ When the weather information for a city is displayed it looks like this:
 The link for the deployed application is this:
 
 https://josevidmal.github.io/u6-hw-server-side-api-weather-dashboard/
+
+Technologies used:
+
+* HTML
+* CSS
+* JavaScript
+* Web APIs
+* Server-Side APIs (OpenWeather API: https://api.openweathermap.org)
+* Moment.js
+* Google Fonts
+
+Contact information:
+
+* José Vidal
+* email: josevidmal@gmail.com
+
+License:
+
+This project is licensed under the terms of the MIT license.
